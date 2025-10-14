@@ -1,5 +1,6 @@
 package edu.farmingdale.bcs371_w7_demo_nav
 
+import android.R.attr.enabled
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -10,6 +11,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.LocationOn
@@ -25,6 +27,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -52,6 +55,7 @@ class MainActivity2 : ComponentActivity() {
 @Composable
 fun BasicOperations(name: String, modifier: Modifier = Modifier) {
     val  context = LocalContext.current
+    var clicked by rememberSaveable { mutableStateOf(true)}
 
     Column {
         Spacer(modifier = Modifier.padding(50.dp))
@@ -60,6 +64,7 @@ fun BasicOperations(name: String, modifier: Modifier = Modifier) {
             newInt.setData(Uri.parse("geo:0,0?q=Farmingdale State College, NY"))
             context.startActivity(newInt)
         },
+            enabled = clicked,
             modifier= Modifier.padding(start = 40.dp, end = 40.dp)) {
             Icon( imageVector = Icons.Default.LocationOn, contentDescription = "Location")
             Text("Show me  Farmingdale")
@@ -69,8 +74,10 @@ fun BasicOperations(name: String, modifier: Modifier = Modifier) {
         Button( onClick = {
             val newInt = Intent(Intent.ACTION_VIEW)
             // ToDo 1: create implicit intent to open a web page or call a phone number
+            newInt.data = Uri.parse("https://www.farmingdale.edu/") //opens fsc website
             context.startActivity(newInt)
         },
+            enabled = clicked,
             modifier= Modifier.padding(start = 40.dp, end = 40.dp)) {
             Icon( imageVector = Icons.Default.Phone, contentDescription = "Phone")
             Text("Call Me")
@@ -80,24 +87,29 @@ fun BasicOperations(name: String, modifier: Modifier = Modifier) {
 
         Button( onClick = {
             // ToDo 2: create explicit intent to open a new activity
-            
+            val newInt = Intent(context, MainActivity::class.java) // explicit intent
+            context.startActivity(newInt)
         },
+            enabled = clicked,
             modifier= Modifier.padding(start = 40.dp, end = 40.dp)) {
             Icon( imageVector = Icons.Default.Info, contentDescription = "Phone")
             Text("Go To activity 2")
         }
 
         // ToDo 3: Change the spacing between the icons and text to be 10dp
+        Spacer(modifier = Modifier.width(10.dp)) // spacing
         // ToDo 4: Add a horizontal divider between the buttons
-
+        HorizontalDivider(thickness = DividerDefaults.Thickness)
 
         // ToDo 5: This switch is not working fix it
         Switch(
-            checked = true,
-            onCheckedChange = {  },
+            checked = clicked,
+            onCheckedChange = { clicked = it }, // updates when toggled
             modifier = Modifier.padding(10.dp),
         )
-        // ToDo 6: when the switch is off, disable the buttons
+        // ToDo 6: when the switch is off, disable the buttons - done above
+
+
     }
 
 

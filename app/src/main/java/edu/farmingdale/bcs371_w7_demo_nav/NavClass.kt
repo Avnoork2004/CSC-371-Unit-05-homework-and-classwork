@@ -64,9 +64,42 @@ fun Navigation() {
 
         // ToDo 7: Add more nav screens here for the pizza party and gpa calculator
 
+        composable("pizza_party_screen") {
+            PizzaPartyScreen(navController)
+        }
+
+        // ✅ ToDo 7: Add GPA Calculator screen
+        composable("gpa_calculator_screen") {
+            GpaCalculatorScreen(navController)
+        }
 
     }
 
+}
+
+
+@Composable
+fun PizzaPartyScreen(navController: NavController) {
+    Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
+        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+            Text(text = "Pizza Party!", fontSize = 24.sp)
+            Button(onClick = { navController.navigate("first_screen") }) {
+                Text("Back to First Screen")
+            }
+        }
+    }
+}
+
+@Composable
+fun GpaCalculatorScreen(navController: NavController) {
+    Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
+        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+            Text(text = "GPA Calculator", fontSize = 24.sp)
+            Button(onClick = { navController.navigate("first_screen") }) {
+                Text("Back to First Screen")
+            }
+        }
+    }
 }
 
 @Composable
