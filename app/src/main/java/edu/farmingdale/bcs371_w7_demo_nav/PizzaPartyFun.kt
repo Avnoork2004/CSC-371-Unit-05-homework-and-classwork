@@ -5,6 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -35,7 +36,7 @@ import kotlin.math.ceil
 
 // ToDo 9: make this composable navigatable and then add a button to navigate to the GPA calculator
 @Composable
-fun PizzaPartyScreen( modifier: Modifier = Modifier) {
+fun PizzaPartyScreen( navController: NavController, modifier: Modifier = Modifier) {
     var totalPizzas by remember { mutableIntStateOf(0) }
     var numPeopleInput by remember { mutableStateOf("") }
     var hungerLevel by remember { mutableStateOf("Medium") }
@@ -67,13 +68,24 @@ fun PizzaPartyScreen( modifier: Modifier = Modifier) {
             modifier = modifier.padding(top = 16.dp, bottom = 16.dp)
         )
         Button(
-            onClick = {            totalPizzas = calculateNumPizzas(numPeopleInput.toInt(),
-                hungerLevel)
-
+            onClick = {
+                if (numPeopleInput.isNotEmpty()) {
+                totalPizzas = calculateNumPizzas(numPeopleInput.toInt(), hungerLevel)
+                }
             },
             modifier = modifier.fillMaxWidth()
         ) {
             Text("Calculate")
+        }
+
+        Spacer(modifier = Modifier.padding(8.dp))
+
+        // button to navigate to GPA calculator
+        Button(
+            onClick = { navController.navigate("gpa_calculator_screen") }, // navigates to the GPA screen
+            modifier = modifier.fillMaxWidth()
+        ) {
+            Text("Go to GPA Calculator") // Labels for the navigation button
         }
 
     }

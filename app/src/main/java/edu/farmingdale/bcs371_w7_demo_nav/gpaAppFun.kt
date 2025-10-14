@@ -21,7 +21,7 @@ fun gpaappFun(navController: NavController) {
     // Declare variables for GPA result and background color
     var gpa by remember { mutableStateOf("") }
     var backColor by remember { mutableStateOf(Color.White) }
-    var btnLabel by remember { mutableStateOf("Calulate GPA") }
+    var btnLabel by remember { mutableStateOf("Compute GPA") }
 
     Column(
         modifier = Modifier
@@ -82,6 +82,13 @@ fun gpaappFun(navController: NavController) {
             Text(text = "GPA: $gpa")
         }
 
+
+        Button(
+            onClick = { navController.navigate("first_screen") }, // navigate to First Screen
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Text("Back to First Screen")
+        }
 
     }
 }

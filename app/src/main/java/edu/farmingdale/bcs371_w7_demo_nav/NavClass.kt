@@ -58,7 +58,7 @@ fun Navigation() {
         }
 
 
-        composable("second_screen") {
+        composable("Second_screen") {
             SecondScreen(navController)
         }
 
@@ -69,7 +69,7 @@ fun Navigation() {
         }
 
         composable("gpa_calculator_screen") {
-            GpaCalculatorScreen(navController)
+            gpaappFun(navController)
         }
 
     }
@@ -77,29 +77,9 @@ fun Navigation() {
 }
 
 
-@Composable
-fun PizzaPartyScreen(navController: NavController) {
-    Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
-        Column(horizontalAlignment = Alignment.CenterHorizontally) {
-            Text(text = "Pizza Party!", fontSize = 24.sp)
-            Button(onClick = { navController.navigate("first_screen") }) {
-                Text("Back to First Screen")
-            }
-        }
-    }
-}
 
-@Composable
-fun GpaCalculatorScreen(navController: NavController) {
-    Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
-        Column(horizontalAlignment = Alignment.CenterHorizontally) {
-            Text(text = "GPA Calculator", fontSize = 24.sp)
-            Button(onClick = { navController.navigate("first_screen") }) {
-                Text("Back to First Screen")
-            }
-        }
-    }
-}
+
+
 
 @Composable
 fun FirstScreen(navController: NavController) {
@@ -109,8 +89,12 @@ fun FirstScreen(navController: NavController) {
             horizontalAlignment = Alignment.CenterHorizontally){
             Text(text = "First Screen")
 
-            Button(onClick = { navController.navigate("second_screen") }) {
+            Button(onClick = { navController.navigate("Second_screen") }) {
                 Text(text ="Go to Second Screen")
+            }
+
+            Button(onClick = { navController.navigate("pizza_party_screen") }) {
+                Text(text ="Go to pizza party screen")
             }
 
         }
